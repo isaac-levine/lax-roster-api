@@ -16,7 +16,7 @@ app.get('/testpage', (req, res) => {
     res.send('Hello World from another page!')
 })
 
-// Get all products
+// Get all players
 app.get('/players', async (req, res) => {
     try {
         const players = await Player.find({});
@@ -26,7 +26,7 @@ app.get('/players', async (req, res) => {
     }
 })
 
-// Get a specific product
+// Get a specific player
 app.get('/players/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -37,7 +37,7 @@ app.get('/players/:id', async (req, res) => {
     }
 })
 
-// Save a specific product
+// Save a specific player
 app.post('/players', async (req, res) => {
     try {
         const player = await Player.create(req.body)
@@ -48,16 +48,16 @@ app.post('/players', async (req, res) => {
     }
 })
 
-// Update a product
+// Update a player
 app.put('/players/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const player = await Player.findByIdAndUpdate(id, req.body);
-        // Cannot find  product in database
+        // Cannot find player in database
         if (!player) {
             return res.status(404).json({ message: `cammpt find player with ID ${id}` })
         }
-        const updatedPlayer = await Player.findById(id); // get updated product from database 
+        const updatedPlayer = await Player.findById(id); // get updated player from database 
         res.status(200).json(updatedPlayer);
     } catch (error) {
         console.log(error.message)
@@ -65,12 +65,12 @@ app.put('/players/:id', async (req, res) => {
     }
 })
 
-// Delete a product
+// Delete a player
 app.delete('/players/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const player = await Player.findByIdAndDelete(id);
-        // Cannot find product in database
+        // Cannot find player in database
         if (!player) {
             return res.status(404).json({ message: `cammpt find player with ID ${id}` })
         }
